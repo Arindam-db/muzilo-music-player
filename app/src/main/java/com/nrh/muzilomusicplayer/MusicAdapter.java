@@ -40,11 +40,9 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
         // Handle item click to open music player
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, MusicPlayerActivity.class);
-            intent.putExtra("title", musicData.getTitle());
-            intent.putExtra("artist", musicData.getArtist());
-            intent.putExtra("path", musicData.getPath());
-
-            context.startActivity(intent);  // Start MusicPlayerActivity
+            intent.putExtra("music_list", new ArrayList<>(filteredList));  // Pass the filtered music list
+            intent.putExtra("position", position);  // Pass the current position
+            context.startActivity(intent);
         });
     }
 
