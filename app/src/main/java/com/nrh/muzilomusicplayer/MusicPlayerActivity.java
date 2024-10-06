@@ -10,6 +10,10 @@ import android.widget.SeekBar;
 import androidx.activity.EdgeToEdge;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 import java.io.IOException;
 
 public class MusicPlayerActivity extends AppCompatActivity {
@@ -27,13 +31,18 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_music_player);
         EdgeToEdge.enable(this);
+        // Now you can safely access the view
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);return insets;
+        });
 
         // Initialize views
         titleTextView = findViewById(R.id.titleTextView);artistTextView = findViewById(R.id.artistTextView);
         seekBar = findViewById(R.id.seekbar_music);
-        ImageButton playPauseButton = findViewById(R.id.playPauseButton);
-        ImageButton nextButton = findViewById(R.id.nextButton);
-        ImageButton previousButton = findViewById(R.id.previousButton);
+        ImageView playPauseButton = findViewById(R.id.playPauseButton);
+        ImageView nextButton = findViewById(R.id.nextButton);
+        ImageView previousButton = findViewById(R.id.previousButton);
         ImageView backButton = findViewById(R.id.back_button);
 
         // Get data from intent

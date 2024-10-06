@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="txt_black">#161616</color>
     <color name="txt_light">#5C5A5A</color>
+    <color name="white_form_bg">#79E4E4E4</color>
 </resources>
