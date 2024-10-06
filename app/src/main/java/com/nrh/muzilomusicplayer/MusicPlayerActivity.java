@@ -1,16 +1,15 @@
 package com.nrh.muzilomusicplayer;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.os.Bundle;
+import android.media.MediaPlayer;import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import androidx.activity.EdgeToEdge;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.io.IOException;
 
 public class MusicPlayerActivity extends AppCompatActivity {
@@ -19,15 +18,18 @@ public class MusicPlayerActivity extends AppCompatActivity {
     private String title, artist, path;
     private TextView titleTextView, artistTextView;
     private SeekBar seekBar;
+    private Handler handler = new Handler();
+    private Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_music_player);
+        EdgeToEdge.enable(this);
 
         // Initialize views
-        titleTextView = findViewById(R.id.titleTextView);
-        artistTextView = findViewById(R.id.artistTextView);
+        titleTextView = findViewById(R.id.titleTextView);artistTextView = findViewById(R.id.artistTextView);
         seekBar = findViewById(R.id.seekbar_music);
         ImageButton playPauseButton = findViewById(R.id.playPauseButton);
         ImageButton nextButton = findViewById(R.id.nextButton);
@@ -67,17 +69,6 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
         // SeekBar functionality
         mediaPlayer.setOnPreparedListener(mp -> seekBar.setMax(mediaPlayer.getDuration()));
-        new Thread(() -> {
-            while (mediaPlayer != null && mediaPlayer.isPlaying()) {
-                try {
-                    Thread.sleep(1000);
-                    seekBar.setProgress(mediaPlayer.getCurrentPosition());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -94,18 +85,29 @@ public class MusicPlayerActivity extends AppCompatActivity {
         });
 
         //back button working
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent= new Intent(MusicPlayerActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        backButton.setOnClickListener(v -> {
+            Intent intent1 = new Intent(MusicPlayerActivity.this, MainActivity.class);
+            startActivity(intent1);
+            finish();
         });
 
         // Next/previous buttons
         nextButton.setOnClickListener(v -> playNextSong());
         previousButton.setOnClickListener(v -> playPreviousSong());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Start updating SeekBar when activity resumes
+        startSeekBarUpdate();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Stop updating SeekBar when activity pauses
+        stopSeekBarUpdate();
     }
 
     @Override
@@ -115,6 +117,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
             mediaPlayer.release();
             mediaPlayer = null;
         }
+        stopSeekBarUpdate(); // Ensure runnable is stopped
     }
 
     // Placeholder methods for next/previous functionality
@@ -124,5 +127,24 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
     private void playPreviousSong() {
         // Logic for playing previous song
+    }
+
+    // Start updating SeekBar
+    private void startSeekBarUpdate() {
+        runnable = () -> {
+            if (mediaPlayer != null) {
+                int currentPosition = mediaPlayer.getCurrentPosition();
+                seekBar.setProgress(currentPosition);
+            }
+            handler.postDelayed(runnable, 1000); // Update every 1 second
+        };
+        handler.postDelayed(runnable, 1000);
+    }
+
+    // Stop updating SeekBar
+    private void stopSeekBarUpdate() {
+        if (runnable != null) {
+            handler.removeCallbacks(runnable);
+        }
     }
 }

@@ -86,9 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Load the initial fragment (e.g., HomeFragment)
         loadFragment(new HomeFragment());
-
-
-
+        
     }
 
     private void loadFragment(Fragment fragment) {
