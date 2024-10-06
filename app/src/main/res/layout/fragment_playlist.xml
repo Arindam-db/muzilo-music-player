@@ -5,10 +5,21 @@
     android:layout_height="match_parent"
     tools:context=".PlaylistFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- RecyclerView for displaying the playlist -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="playlists" />
+        android:layout_marginBottom="72dp" />
+
+    <!-- FloatingActionButton to add a playlist -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddPlaylist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="Add Playlist"
+        android:src="@drawable/ic_add" />
 
 </FrameLayout>
