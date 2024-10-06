@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.navigation_playlists) {
                     loadFragment(new PlaylistFragment());
                     return true;
-                } else if (item.getItemId() == R.id.navigation_equalizer) {loadFragment(new EqualizerFragment());
+                } else if (item.getItemId() == R.id.navigation_equalizer) {
+                    loadFragment(new EqualizerFragment());
                     return true;
                 }
                 return false;
