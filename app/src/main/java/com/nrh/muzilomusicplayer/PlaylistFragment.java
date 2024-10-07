@@ -1,7 +1,6 @@
 package com.nrh.muzilomusicplayer;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,23 +13,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.nrh.muzilomusicplayer.PlaylistAdapter;
-import com.nrh.muzilomusicplayer.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaylistFragment extends Fragment implements PlaylistAdapter.OnPlaylistClickListener {
+public class PlaylistFragment extends Fragment {
 
-    private RecyclerView recyclerView;
+    /*private RecyclerView recyclerView;
     private PlaylistAdapter adapter;
     private List<String> playlistNames;
-
+*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_playlist, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerView);
+        /*//recyclerView = view.findViewById(R.id.recyclerView);
         FloatingActionButton fabAddPlaylist = view.findViewById(R.id.fabAddPlaylist);
 
         // Setup RecyclerView
@@ -52,14 +49,14 @@ public class PlaylistFragment extends Fragment implements PlaylistAdapter.OnPlay
         Bundle bundle = new Bundle();
         bundle.putString("playlist_name", playlistName);
 
-        SongSelectionFragment songSelectionFragment = new SongSelectionFragment();
+       *//* SongSelectionFragment songSelectionFragment = new SongSelectionFragment();
         songSelectionFragment.setArguments(bundle);
 
         getFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, songSelectionFragment) // Replace with your container ID
                 .addToBackStack(null)
                 .commit();
-    }
+    }*//*
 
     private void showAddPlaylistDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -81,6 +78,7 @@ public class PlaylistFragment extends Fragment implements PlaylistAdapter.OnPlay
 
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
-        builder.show();
+        builder.show();*/
+        return view;
     }
 }

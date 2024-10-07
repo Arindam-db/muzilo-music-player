@@ -35,9 +35,12 @@ dependencies {
 
     implementation(libs.appcompat)
     implementation(libs.material)
+    implementation (libs.gson)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.compiler)
     testImplementation(libs.junit)
+    implementation (libs.guava)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }

@@ -43,6 +43,9 @@
             android:name=".EqualizerFragment"
             android:exported="false" />
 
+        <service android:name=".MusicService"
+            android:foregroundServiceType="mediaPlayback"/>
+
     </application>
 
 </manifest>
